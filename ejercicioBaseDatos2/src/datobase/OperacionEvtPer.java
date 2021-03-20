@@ -5,6 +5,9 @@
  */
 package datobase;
 
+import java.util.ArrayList;
+import modelo.*;
+import java.sql.*;
 /**
  *
  * @author txaber
@@ -16,6 +19,18 @@ public class OperacionEvtPer {
     public OperacionEvtPer(Conexion con) {
         this.con = con;
     }
-    
-    
+
+    public void altaAsitencia(String nombre, String dni) throws Exception {
+        
+            con.conectar(); 
+        
+            PreparedStatement ps = con.getCon().prepareStatement("INSERT INTO `persona-eventos` VALUES(?,?)");
+            ps.setString(1, nombre);
+            ps.setString(2, dni);
+        
+            ps.executeUpdate();
+        
+        
+        con.desconectar();
+    }
 }

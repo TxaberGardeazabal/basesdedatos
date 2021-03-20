@@ -39,6 +39,7 @@ public class Vmenu extends javax.swing.JFrame {
         bBorrarEvento = new javax.swing.JButton();
         bModificarEvento = new javax.swing.JButton();
         bAsistencia = new javax.swing.JButton();
+        bListado = new javax.swing.JButton();
         bSalir = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
@@ -48,7 +49,7 @@ public class Vmenu extends javax.swing.JFrame {
         jMenu2 = new javax.swing.JMenu();
         miAsistencia = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        miListado = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -97,6 +98,17 @@ public class Vmenu extends javax.swing.JFrame {
             }
         });
         jToolBar1.add(bAsistencia);
+
+        bListado.setText("listar");
+        bListado.setFocusable(false);
+        bListado.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        bListado.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        bListado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bListadoActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(bListado);
 
         bSalir.setText("salir");
         bSalir.addActionListener(new java.awt.event.ActionListener() {
@@ -147,8 +159,13 @@ public class Vmenu extends javax.swing.JFrame {
 
         jMenu3.setText("listado");
 
-        jMenuItem1.setText("listado");
-        jMenu3.add(jMenuItem1);
+        miListado.setText("listado");
+        miListado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miListadoActionPerformed(evt);
+            }
+        });
+        jMenu3.add(miListado);
 
         jMenuBar1.add(jMenu3);
 
@@ -251,6 +268,14 @@ public class Vmenu extends javax.swing.JFrame {
         EjercicioBaseDatos2.vAsistencia();
     }//GEN-LAST:event_miAsistenciaActionPerformed
 
+    private void miListadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miListadoActionPerformed
+        EjercicioBaseDatos2.vListado();
+    }//GEN-LAST:event_miListadoActionPerformed
+
+    private void bListadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bListadoActionPerformed
+        miListado.doClick();
+    }//GEN-LAST:event_bListadoActionPerformed
+
     private void validar(String nombre) throws Exception{
         
         if (nombre.isEmpty())
@@ -301,17 +326,18 @@ public class Vmenu extends javax.swing.JFrame {
     private javax.swing.JButton bAsistencia;
     private javax.swing.JButton bBorrarEvento;
     private javax.swing.JButton bGuardarEvento;
+    private javax.swing.JButton bListado;
     private javax.swing.JButton bModificarEvento;
     private javax.swing.JButton bSalir;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JMenuItem miAsistencia;
     private javax.swing.JMenuItem miBorrarEvento;
     private javax.swing.JMenuItem miGuardarEvento;
+    private javax.swing.JMenuItem miListado;
     private javax.swing.JMenuItem miModificarEvento;
     // End of variables declaration//GEN-END:variables
 }

@@ -28,6 +28,11 @@ public class Persona {
         this.telefono = telefono;
         this.empresa = empresa;
     }
+    
+    public Persona(String dni, String nombre) {
+        this.dni = dni;
+        this.nombre = nombre;
+    }
 
     public String getDni() {
         return dni;

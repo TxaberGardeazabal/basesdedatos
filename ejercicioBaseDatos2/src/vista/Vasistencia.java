@@ -5,28 +5,36 @@
  */
 package vista;
 
+import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
 import ejerciciobasedatos2.EjercicioBaseDatos2;
 import javax.swing.JOptionPane;
-import Excepciones.*;
+import excepciones.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  *
  * @author txaber
  */
 public class Vasistencia extends javax.swing.JDialog {
 
+    private boolean ext;
     /**
      * Creates new form Vasistencia
      */
     public Vasistencia(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
+        initComponents();
+        setLocationRelativeTo(parent);
+        ext = false;
         try {
-        
-            initComponents();
-            setLocationRelativeTo(parent);
+            
             EjercicioBaseDatos2.listaEventos(cbEventos);
         }
         catch (FilaNoEncontrada e) {
             JOptionPane.showMessageDialog(parent, modal);
+            this.dispose();
+        } catch (Exception ex) {
+            Logger.getLogger(Vasistencia.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -67,6 +75,12 @@ public class Vasistencia extends javax.swing.JDialog {
         jLabel1.setText("Control de asistencia");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        tfDni.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                tfDniFocusLost(evt);
+            }
+        });
 
         jLabel2.setText("Dni");
 
@@ -167,6 +181,7 @@ public class Vasistencia extends javax.swing.JDialog {
         jLabel10.setText("Datos de empresa");
 
         bAceptar.setText("Aceptar");
+        bAceptar.setEnabled(false);
         bAceptar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bAceptarActionPerformed(evt);
@@ -245,13 +260,67 @@ public class Vasistencia extends javax.swing.JDialog {
         
         try {
             
-            
+            if (ext) {
+                
+                EjercicioBaseDatos2.procesoAsistencia((String) cbEventos.getSelectedItem());
+            }
+            else {
+                // validar datos
+                
+                EjercicioBaseDatos2.procesoAsistencia((String) cbEventos.getSelectedItem(), tfDni.getText(), tfNombre.getText(), Integer.parseInt(tfEdad.getText()), 
+                                                        Integer.parseInt(tfTelefono.getText()), tfNombreEmp.getText(), Integer.parseInt(tfCNAE.getText()));
+            }
+            JOptionPane.showMessageDialog(this, "Ya estas inscrito");
+        }
+        catch (MySQLIntegrityConstraintViolationException e ) {
+            JOptionPane.showMessageDialog(this, "ya estas incrito en este evento");
         }
         catch (Exception e) {
             System.out.println(e.getClass());
         }
     }//GEN-LAST:event_bAceptarActionPerformed
 
+    private void tfDniFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfDniFocusLost
+        try {
+            if (!tfDni.getText().isEmpty()) {
+                //validar dni
+                
+                // se comprueba si existe la persona
+                if (EjercicioBaseDatos2.comprobarPersona(tfDni.getText())) {
+                    // persona existe, le llenamos todos sus datos
+                    procesoPersonaExiste();
+                    bAceptar.setEnabled(true);
+                    ext = true;
+                }
+                else {
+                    //persona no existe
+                    bAceptar.setEnabled(true);
+                }
+            }
+        }
+        catch (Exception e) {
+            System.out.println(e.getClass());
+        }
+    }//GEN-LAST:event_tfDniFocusLost
+
+    public void procesoPersonaExiste() {
+        tfDni.setEditable(false);
+        
+        tfNombre.setText(EjercicioBaseDatos2.getNombre());
+        tfNombre.setEditable(false);
+        
+        tfEdad.setText(Integer.toString(EjercicioBaseDatos2.getEdad()));
+        tfEdad.setEditable(false);
+        
+        tfTelefono.setText(Integer.toString(EjercicioBaseDatos2.getTelefono()));
+        tfTelefono.setEditable(false);
+        
+        tfNombreEmp.setText(EjercicioBaseDatos2.getNombreEmpresa());
+        tfNombreEmp.setEditable(false);
+        
+        tfCNAE.setText(Integer.toString(EjercicioBaseDatos2.getCNAEEmpresa()));
+        tfCNAE.setEditable(false);
+    }
     /**
      * @param args the command line arguments
      */
