@@ -26,8 +26,16 @@ public class Abogado extends Persona{
         this.casos = new ArrayList();
     }
 
+    public Abogado() {}
+    
     public ArrayList<Caso> getCasos() {
         return casos;
+    }
+    
+    public void setCaso(Caso caso) {
+        if (casos == null)
+            casos = new ArrayList();
+        this.casos.add(caso);
     }
 
     public void setCasos(ArrayList<Caso> casos) {

@@ -14,7 +14,7 @@ import java.util.ArrayList;
  */
 public class Caso {
     
-    private String ID;
+    private Integer ID;
     private LocalDate juicioInicio;
     private LocalDate juicioFin;
     private String estado;
@@ -22,7 +22,7 @@ public class Caso {
     private Cliente cliente;
     private ArrayList<Abogado> abogadoCargo;
 
-    public Caso(String ID, LocalDate juicioInicio, LocalDate juicioFin, String estado, Cliente cliente, ArrayList<Abogado> abogadoCargo) {
+    public Caso(Integer ID, LocalDate juicioInicio, LocalDate juicioFin, String estado, Cliente cliente, ArrayList<Abogado> abogadoCargo) {
         this.ID = ID;
         this.juicioInicio = juicioInicio;
         this.juicioFin = juicioFin;
@@ -31,7 +31,7 @@ public class Caso {
         this.abogadoCargo = abogadoCargo;
     }
 
-    public Caso(String ID, LocalDate juicioInicio, LocalDate juicioFin, String estado, Cliente cliente) {
+    public Caso(Integer ID, LocalDate juicioInicio, LocalDate juicioFin, String estado, Cliente cliente) {
         this.ID = ID;
         this.juicioInicio = juicioInicio;
         this.juicioFin = juicioFin;
@@ -39,12 +39,14 @@ public class Caso {
         this.cliente = cliente;
         this.abogadoCargo = new ArrayList();
     }
+
+    public Caso() {}
     
-    public String getID() {
+    public Integer getID() {
         return ID;
     }
 
-    public void setID(String ID) {
+    public void setID(Integer ID) {
         this.ID = ID;
     }
 
@@ -86,6 +88,10 @@ public class Caso {
 
     public void setAbogadoCargo(Abogado abogadoCargo) {
         this.abogadoCargo.add(abogadoCargo);
+    }
+    
+    public void setAbogadosCargo(ArrayList<Abogado> abogados) {
+        this.abogadoCargo = abogados;
     }
 
     @Override

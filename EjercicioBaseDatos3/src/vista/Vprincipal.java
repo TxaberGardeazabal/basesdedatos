@@ -9,13 +9,17 @@ package vista;
  *
  * @author txaber
  */
+import ejerciciobasedatos3.EjercicioBaseDatos3;
+        
 public class Vprincipal extends javax.swing.JFrame {
 
+    
     /**
      * Creates new form Vprincipal
      */
     public Vprincipal() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -29,80 +33,144 @@ public class Vprincipal extends javax.swing.JFrame {
 
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
+        miCliAlta = new javax.swing.JMenuItem();
+        miCliBaja = new javax.swing.JMenuItem();
+        miCliModif = new javax.swing.JMenuItem();
+        miCliConsulta = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
-        jMenuItem6 = new javax.swing.JMenuItem();
-        jMenuItem7 = new javax.swing.JMenuItem();
-        jMenuItem8 = new javax.swing.JMenuItem();
-        jMenuItem5 = new javax.swing.JMenuItem();
+        miAboAlta = new javax.swing.JMenuItem();
+        miAboBaja = new javax.swing.JMenuItem();
+        miAboModif = new javax.swing.JMenuItem();
+        miAboConsulta = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
-        jMenuItem9 = new javax.swing.JMenuItem();
-        jMenuItem11 = new javax.swing.JMenuItem();
-        jMenuItem12 = new javax.swing.JMenuItem();
-        jMenuItem13 = new javax.swing.JMenuItem();
+        miCasAlta = new javax.swing.JMenuItem();
+        miCasBaja = new javax.swing.JMenuItem();
+        miCasModif = new javax.swing.JMenuItem();
+        miCasConsulta = new javax.swing.JMenuItem();
+        jMenu4 = new javax.swing.JMenu();
+        miSalir = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jMenu1.setText("clientes");
 
-        jMenuItem1.setText("alta");
-        jMenu1.add(jMenuItem1);
-
-        jMenuItem2.setText("baja");
-        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+        miCliAlta.setText("alta");
+        miCliAlta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem2ActionPerformed(evt);
+                miCliAltaActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem2);
+        jMenu1.add(miCliAlta);
 
-        jMenuItem3.setText("modificar");
-        jMenu1.add(jMenuItem3);
+        miCliBaja.setText("baja");
+        miCliBaja.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miCliBajaActionPerformed(evt);
+            }
+        });
+        jMenu1.add(miCliBaja);
 
-        jMenuItem4.setText("consultar");
-        jMenu1.add(jMenuItem4);
+        miCliModif.setText("modificar");
+        miCliModif.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miCliModifActionPerformed(evt);
+            }
+        });
+        jMenu1.add(miCliModif);
+
+        miCliConsulta.setText("consultar");
+        miCliConsulta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miCliConsultaActionPerformed(evt);
+            }
+        });
+        jMenu1.add(miCliConsulta);
 
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("abogados");
 
-        jMenuItem6.setText("alta");
-        jMenu2.add(jMenuItem6);
-
-        jMenuItem7.setText("baja");
-        jMenu2.add(jMenuItem7);
-
-        jMenuItem8.setText("modificar");
-        jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
+        miAboAlta.setText("alta");
+        miAboAlta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem8ActionPerformed(evt);
+                miAboAltaActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem8);
+        jMenu2.add(miAboAlta);
 
-        jMenuItem5.setText("consultar");
-        jMenu2.add(jMenuItem5);
+        miAboBaja.setText("baja");
+        miAboBaja.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miAboBajaActionPerformed(evt);
+            }
+        });
+        jMenu2.add(miAboBaja);
+
+        miAboModif.setText("modificar");
+        miAboModif.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miAboModifActionPerformed(evt);
+            }
+        });
+        jMenu2.add(miAboModif);
+
+        miAboConsulta.setText("consultar");
+        miAboConsulta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miAboConsultaActionPerformed(evt);
+            }
+        });
+        jMenu2.add(miAboConsulta);
 
         jMenuBar1.add(jMenu2);
 
         jMenu3.setText("casos");
 
-        jMenuItem9.setText("alta");
-        jMenu3.add(jMenuItem9);
+        miCasAlta.setText("alta");
+        miCasAlta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miCasAltaActionPerformed(evt);
+            }
+        });
+        jMenu3.add(miCasAlta);
 
-        jMenuItem11.setText("baja");
-        jMenu3.add(jMenuItem11);
+        miCasBaja.setText("baja");
+        miCasBaja.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miCasBajaActionPerformed(evt);
+            }
+        });
+        jMenu3.add(miCasBaja);
 
-        jMenuItem12.setText("modificar");
-        jMenu3.add(jMenuItem12);
+        miCasModif.setText("modificar");
+        miCasModif.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miCasModifActionPerformed(evt);
+            }
+        });
+        jMenu3.add(miCasModif);
 
-        jMenuItem13.setText("consultar");
-        jMenu3.add(jMenuItem13);
+        miCasConsulta.setText("consultar");
+        miCasConsulta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miCasConsultaActionPerformed(evt);
+            }
+        });
+        jMenu3.add(miCasConsulta);
 
         jMenuBar1.add(jMenu3);
+
+        jMenu4.setText("salir");
+
+        miSalir.setText("abandonar programa");
+        miSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miSalirActionPerformed(evt);
+            }
+        });
+        jMenu4.add(miSalir);
+
+        jMenuBar1.add(jMenu4);
 
         setJMenuBar(jMenuBar1);
 
@@ -110,24 +178,86 @@ public class Vprincipal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 273, Short.MAX_VALUE)
+            .addGap(0, 397, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 169, Short.MAX_VALUE)
+            .addGap(0, 208, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem2ActionPerformed
+    private void miCliBajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miCliBajaActionPerformed
+        vcambioPer = new VcambioPersona(this,true,"cliente","baja");
+        vcambioPer.setVisible(true);
+    }//GEN-LAST:event_miCliBajaActionPerformed
 
-    private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
+    private void miAboModifActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miAboModifActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem8ActionPerformed
+    }//GEN-LAST:event_miAboModifActionPerformed
 
+    private void miCasModifActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miCasModifActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_miCasModifActionPerformed
+        
+    private void miCliAltaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miCliAltaActionPerformed
+        vcambioPer = new VcambioPersona(this,true,"cliente","alta");
+        vcambioPer.setVisible(true);
+    }//GEN-LAST:event_miCliAltaActionPerformed
+
+    private void miCliModifActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miCliModifActionPerformed
+        vcambioPer = new VcambioPersona(this,true,"cliente","modificar");
+        vcambioPer.setVisible(true);
+    }//GEN-LAST:event_miCliModifActionPerformed
+
+    private void miCliConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miCliConsultaActionPerformed
+        vconsultaPer = new VconsultaPersona(this,true,"Cliente");
+        vconsultaPer.setVisible(true);
+    }//GEN-LAST:event_miCliConsultaActionPerformed
+
+    private void miAboAltaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miAboAltaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_miAboAltaActionPerformed
+
+    private void miAboBajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miAboBajaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_miAboBajaActionPerformed
+
+    private void miAboConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miAboConsultaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_miAboConsultaActionPerformed
+
+    private void miCasAltaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miCasAltaActionPerformed
+        vAltaCaso = new ValtaCaso(this,true);
+        vAltaCaso.setVisible(true);
+    }//GEN-LAST:event_miCasAltaActionPerformed
+
+    private void miCasBajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miCasBajaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_miCasBajaActionPerformed
+
+    private void miCasConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miCasConsultaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_miCasConsultaActionPerformed
+
+    private void miSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miSalirActionPerformed
+        EjercicioBaseDatos3.salir();
+    }//GEN-LAST:event_miSalirActionPerformed
+
+    
+    private static VcambioPersona vcambioPer;
+    private static VconsultaPersona vconsultaPer;
+    private static ValtaCaso vAltaCaso;    
+    
+    // cierre con parametro
+    public static void cancelar(int o) {
+        switch (o) {
+            case 0: vcambioPer.dispose(); break;
+            
+        }
+        
+    }
     /**
      * @param args the command line arguments
      */
@@ -167,18 +297,20 @@ public class Vprincipal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem11;
-    private javax.swing.JMenuItem jMenuItem12;
-    private javax.swing.JMenuItem jMenuItem13;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JMenuItem jMenuItem6;
-    private javax.swing.JMenuItem jMenuItem7;
-    private javax.swing.JMenuItem jMenuItem8;
-    private javax.swing.JMenuItem jMenuItem9;
+    private javax.swing.JMenuItem miAboAlta;
+    private javax.swing.JMenuItem miAboBaja;
+    private javax.swing.JMenuItem miAboConsulta;
+    private javax.swing.JMenuItem miAboModif;
+    private javax.swing.JMenuItem miCasAlta;
+    private javax.swing.JMenuItem miCasBaja;
+    private javax.swing.JMenuItem miCasConsulta;
+    private javax.swing.JMenuItem miCasModif;
+    private javax.swing.JMenuItem miCliAlta;
+    private javax.swing.JMenuItem miCliBaja;
+    private javax.swing.JMenuItem miCliConsulta;
+    private javax.swing.JMenuItem miCliModif;
+    private javax.swing.JMenuItem miSalir;
     // End of variables declaration//GEN-END:variables
 }

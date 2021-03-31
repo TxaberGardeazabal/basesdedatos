@@ -16,9 +16,7 @@ public class Conexion {
     
     private Connection con;
 
-    public Conexion(Connection con) {
-        this.con = con;
-    }
+    public Conexion() {}
 
     public Connection getCon() {
         return con;
@@ -29,7 +27,7 @@ public class Conexion {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             
-            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/ejercicio3","root","usbw");
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/ejercicio3","root","12345Abcde");
             if (con == null)
                 throw new Exception("Problemas en la conexion");
         }

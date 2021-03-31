@@ -19,6 +19,8 @@ public class Cliente extends Persona{
     
     private ArrayList<Caso> casos;
 
+    public Cliente() {}
+    
     public Cliente(String dni, String nombre, String apellidos, String direccion, String telefono, String correo, ArrayList<Caso> casos) {
         super (dni,nombre,apellidos,direccion);
         this.telefono = telefono;
@@ -52,14 +54,27 @@ public class Cliente extends Persona{
     public ArrayList<Caso> getCasos() {
         return casos;
     }
+    
+    public void setCaso(Caso caso) {
+        if (casos == null)
+            casos = new ArrayList();
+        this.casos.add(caso);
+    }
 
-    public void setCasos(Caso casos) {
-        this.casos.add(casos);
+    public void setCasos(ArrayList<Caso> casos) {
+        this.casos = casos;
     }
 
     @Override
     public String toString() {
-        return "Cliente{" + "dni=" + this.getDni() + ", nombre=" + this.getNombre() + ", apellidos=" + this.getApellido() + ", direccion=" + this.getDireccion() + ", telefono=" + telefono + ", correo=" + correo + '}';
+        String ret = "cliente: "+this.getDni()+" nombre: "+this.getNombre()+" "+this.getApellido()+" telefono: "+telefono+" estuvo en el/los caso(s):\n";
+        for (int x = 0;x < casos.size();x++) {
+            ret += "ID: "+casos.get(x).getID()+" fecha de inicio: "+casos.get(x).getJuicioInicio().toString()+" estado: "+casos.get(x).getEstado()+" llevado por los abogados:\n";
+            for (int y = 0;y < casos.get(x).getAbogadoCargo().size(); y++) {
+                ret += "dni: "+casos.get(x).getAbogadoCargo().get(y).getDni()+" nombre: "+casos.get(x).getAbogadoCargo().get(y).getNombre();
+            }
+        }
+        return ret;
     }
     
 }

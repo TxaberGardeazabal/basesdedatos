@@ -5,6 +5,9 @@
  */
 package datobase;
 
+import modelo.*;
+import java.sql.*;
+import java.util.ArrayList;
 /**
  *
  * @author txaber
@@ -17,5 +20,34 @@ public class OpAbogadoLlevaCasos {
         this.con = con;
     }
     
-    
+    public ArrayList<Abogado> consultaAbogadosPorCaso(int ID) throws Exception{
+        
+        ArrayList<Abogado> lista = new ArrayList();
+        con.conectar();
+        
+        PreparedStatement s = con.getCon().prepareStatement("SELECT ab.dni, ab.nombre FROM `abogadollevacasos` ac, `abogados` ab WHERE ac.ID = ? AND ac.dni = ab.dni");
+        s.setInt(1, ID);
+        ResultSet res = s.executeQuery();
+        
+        while(res.next()) {
+            Abogado  ab = new Abogado();
+            ab.setDni(res.getString("dni"));
+            ab.setNombre(res.getString("nombre"));
+            
+            lista.add(ab);
+        }
+        con.desconectar();
+        return lista;
+    }
+
+    public void asignar(String dni, Integer id) throws Exception{
+        con.conectar();
+        
+        PreparedStatement ps = con.getCon().prepareStatement("INSERT INTO `abogadollevacasos` VALUES (?,?);");
+        ps.setInt(1, id);
+        ps.setString(2, dni);
+        ps.executeUpdate();
+        
+        con.desconectar();
+    }
 }
