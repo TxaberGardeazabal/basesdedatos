@@ -96,7 +96,18 @@ public class Caso {
 
     @Override
     public String toString() {
-        return "Caso{" + "ID=" + ID + ", juicioInicio=" + juicioInicio + ", juicioFin=" + juicioFin + ", estado=" + estado + ", cliente=" + cliente + ", abogadoCargo=" + abogadoCargo + '}';
+        String ret = "Caso con identificador = "+String.valueOf(ID)+
+                "\nfecha comienzo: "+juicioInicio.toString();
+        
+        if (estado.equals("archivado")) {
+            ret += " fecha finalizacion: "+juicioFin.toString();
+        }
+        ret +=" estado: "+estado+
+            "\ncliente: "+cliente.getNombre()+
+            "\nabogados:";
+        ret = abogadoCargo.stream().map((abogadoCargo1) -> "\n"+abogadoCargo1.getNombre()+" "+abogadoCargo1.getApellido()).reduce(ret, String::concat);
+        
+        return ret;
     }
     
     

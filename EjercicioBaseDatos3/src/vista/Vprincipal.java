@@ -45,6 +45,7 @@ public class Vprincipal extends javax.swing.JFrame {
         jMenu3 = new javax.swing.JMenu();
         miCasAlta = new javax.swing.JMenuItem();
         miCasBaja = new javax.swing.JMenuItem();
+        miCasTerm = new javax.swing.JMenuItem();
         miCasModif = new javax.swing.JMenuItem();
         miCasConsulta = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
@@ -142,6 +143,14 @@ public class Vprincipal extends javax.swing.JFrame {
         });
         jMenu3.add(miCasBaja);
 
+        miCasTerm.setText("terminar");
+        miCasTerm.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miCasTermActionPerformed(evt);
+            }
+        });
+        jMenu3.add(miCasTerm);
+
         miCasModif.setText("modificar");
         miCasModif.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -198,7 +207,8 @@ public class Vprincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_miAboModifActionPerformed
 
     private void miCasModifActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miCasModifActionPerformed
-        // TODO add your handling code here:
+        vModificarCaso = new VmodificarCaso(this,true);
+        vModificarCaso.setVisible(true);
     }//GEN-LAST:event_miCasModifActionPerformed
         
     private void miCliAltaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miCliAltaActionPerformed
@@ -234,7 +244,8 @@ public class Vprincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_miCasAltaActionPerformed
 
     private void miCasBajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miCasBajaActionPerformed
-        // TODO add your handling code here:
+        vBajaCaso = new VbajaCaso(this,true);
+        vBajaCaso.setVisible(true);
     }//GEN-LAST:event_miCasBajaActionPerformed
 
     private void miCasConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miCasConsultaActionPerformed
@@ -245,10 +256,18 @@ public class Vprincipal extends javax.swing.JFrame {
         EjercicioBaseDatos3.salir();
     }//GEN-LAST:event_miSalirActionPerformed
 
+    private void miCasTermActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miCasTermActionPerformed
+        vTerminarCaso = new VterminarCaso(this,true);
+        vTerminarCaso.setVisible(true);
+    }//GEN-LAST:event_miCasTermActionPerformed
+
     
     private static VcambioPersona vcambioPer;
     private static VconsultaPersona vconsultaPer;
-    private static ValtaCaso vAltaCaso;    
+    private static ValtaCaso vAltaCaso;
+    private static VbajaCaso vBajaCaso;
+    private static VterminarCaso vTerminarCaso;
+    public static VmodificarCaso vModificarCaso;
     
     // cierre con parametro
     public static void cancelar(int o) {
@@ -307,6 +326,7 @@ public class Vprincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem miCasBaja;
     private javax.swing.JMenuItem miCasConsulta;
     private javax.swing.JMenuItem miCasModif;
+    private javax.swing.JMenuItem miCasTerm;
     private javax.swing.JMenuItem miCliAlta;
     private javax.swing.JMenuItem miCliBaja;
     private javax.swing.JMenuItem miCliConsulta;

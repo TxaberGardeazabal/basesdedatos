@@ -20,6 +20,7 @@ public class ValtaCaso extends javax.swing.JDialog {
     public ValtaCaso(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        setLocationRelativeTo(null);
         mostrarDatos();
     }
 

@@ -37,6 +37,7 @@ public class EjercicioBaseDatos3 {
     private static Caso ca;
     private static ArrayList<Cliente> listaCl;
     private static ArrayList<Abogado> listaAb;
+    private static ArrayList<Caso> listaC;
     
     // ventanas
     private static Vprincipal vp;
@@ -95,6 +96,13 @@ public class EjercicioBaseDatos3 {
             throw new FilaNoEncontrada();
     }
     
+    public static Cliente consultaClientePorDniv2(String dni,boolean casos) throws Exception{
+        Cliente c = Ocliente.consultaUno(dni,casos);
+        if (c == null)
+            throw new FilaNoEncontrada();
+        return c;
+    }
+    
     public static void consultaTodoCliente() throws Exception{
         listaCl = Ocliente.consultaTodo();
         if (listaCl == null)
@@ -121,6 +129,10 @@ public class EjercicioBaseDatos3 {
         return ret;
     }
     
+    public static void consultaCasosPorID(String ID) throws Exception{
+        ca = Ocasos.consultaCasosPorID(ID);
+    }
+    
     public static void llenarListaAbogados(javax.swing.JList<String> lista) throws Exception{
         listaAb = Oabogados.consultaTodo();
         if (listaAb == null) {
@@ -133,6 +145,10 @@ public class EjercicioBaseDatos3 {
             modelo.add(x, listaAb.get(x).getNombre()+" "+listaAb.get(x).getApellido());
         }
         lista.setModel(modelo);
+    }
+    
+    public static void llenarDatosCaso(javax.swing.JTextArea lista) {
+        lista.setText(ca.toString());
     }
     
     public static void altaCaso(String ID, String fecha, String estado, int[] abogados) throws Exception{
@@ -149,6 +165,25 @@ public class EjercicioBaseDatos3 {
         
         for (int x = 0; x < abogados.length;x++) {
             OabogadoCasos.asignar(listaAb.get(abogados[x]).getDni(),s.getID());
+        }
+    }
+    
+    public static void bajaCasos() throws Exception{
+        Ocasos.bajaCasos(ca.getID());
+    }
+    
+    public static void terminarCaso(String ID, String fechaFin, String estado) throws Exception{
+        DateTimeFormatter form = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate fechaIn = LocalDate.parse(fechaFin, form);
+        
+        Ocasos.terminarCasos(Integer.parseInt(ID),fechaIn,estado);
+    }
+
+    public static void llenarCB (javax.swing.JComboBox<String> caja) throws Exception{
+        listaC = Ocasos.consultaTodo();
+        
+        for (int x = 0;x < listaC.size();x++) {
+            caja.insertItemAt(String.valueOf(listaC.get(x).getID()), x);
         }
     }
     
@@ -181,7 +216,7 @@ public class EjercicioBaseDatos3 {
         return listaCl.size();
     }
 
-    // datos del clielte en memoria
+    // datos del cliente en memoria
     public static String getDniCli() {
         return cl.getDni();
     }
@@ -206,10 +241,20 @@ public class EjercicioBaseDatos3 {
         return cl.getCorreo();
     }
     
+    // datos de caso en memoria
+    public static String getEstadoCaso() {
+        return ca.getEstado();
+    }
+    
+    public static String getFechaInicioCaso(int pos) {
+        return listaC.get(pos).getJuicioInicio().toString();
+    }
+    
+    public static String getCliCaso(int pos) {
+        return listaC.get(pos).getCliente().getDni();
+    }
+    
     public static void salir() {
         System.exit(0);
-    }
-
-    
-    
+    } 
 }

@@ -25,7 +25,7 @@ public class OpAbogadoLlevaCasos {
         ArrayList<Abogado> lista = new ArrayList();
         con.conectar();
         
-        PreparedStatement s = con.getCon().prepareStatement("SELECT ab.dni, ab.nombre FROM `abogadollevacasos` ac, `abogados` ab WHERE ac.ID = ? AND ac.dni = ab.dni");
+        PreparedStatement s = con.getCon().prepareStatement("SELECT ab.dni, ab.nombre, ab.apellidos FROM `abogadollevacasos` ac, `abogados` ab WHERE ac.ID = ? AND ac.dni = ab.dni");
         s.setInt(1, ID);
         ResultSet res = s.executeQuery();
         
@@ -33,6 +33,7 @@ public class OpAbogadoLlevaCasos {
             Abogado  ab = new Abogado();
             ab.setDni(res.getString("dni"));
             ab.setNombre(res.getString("nombre"));
+            ab.setApellido(res.getString("apellidos"));
             
             lista.add(ab);
         }
