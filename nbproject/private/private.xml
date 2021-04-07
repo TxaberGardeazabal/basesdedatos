@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="1">
+        <file>
+            <url>src/vista/VconsultaPersona.java</url>
+            <bookmark id="1">
+                <name/>
+                <line>335</line>
+                <key/>
+            </bookmark>
+        </file>
+    </editor-bookmarks>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/C:/Users/txaber/Documents/NetBeansProjects/EjercicioBaseDatos3/src/datobase/OpAbogados.java</file>
+            <file>file:/C:/Users/txaber/Documents/NetBeansProjects/EjercicioBaseDatos3/src/modelo/Caso.java</file>
+            <file>file:/C:/Users/txaber/Documents/NetBeansProjects/EjercicioBaseDatos3/src/vista/Vprincipal.java</file>
+            <file>file:/C:/Users/txaber/Documents/NetBeansProjects/EjercicioBaseDatos3/src/modelo/Abogado.java</file>
+            <file>file:/C:/Users/txaber/Documents/NetBeansProjects/EjercicioBaseDatos3/src/ejerciciobasedatos3/EjercicioBaseDatos3.java</file>
+            <file>file:/C:/Users/txaber/Documents/NetBeansProjects/EjercicioBaseDatos3/src/datobase/OpAbogadoLlevaCasos.java</file>
+            <file>file:/C:/Users/txaber/Documents/NetBeansProjects/EjercicioBaseDatos3/src/vista/VconsultaPersona.java</file>
+            <file>file:/C:/Users/txaber/Documents/NetBeansProjects/EjercicioBaseDatos3/src/modelo/Cliente.java</file>
+            <file>file:/C:/Users/txaber/Documents/NetBeansProjects/EjercicioBaseDatos3/src/vista/VcambioPersona.java</file>
+            <file>file:/C:/Users/txaber/Documents/NetBeansProjects/EjercicioBaseDatos3/src/datobase/OpCasos.java</file>
+            <file>file:/C:/Users/txaber/Documents/NetBeansProjects/EjercicioBaseDatos3/src/datobase/OpClientes.java</file>
+        </group>
+    </open-files>
+</project-private>
