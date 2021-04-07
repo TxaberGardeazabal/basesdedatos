@@ -12,6 +12,7 @@ import excepciones.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import javax.swing.JTextArea;
 
 /**
  *
@@ -187,6 +188,29 @@ public class EjercicioBaseDatos3 {
         }
     }
     
+    public static void altaAbogado(String dni, String nombre, String apellidos, String direccion) throws Exception{
+        Abogado abo = new Abogado(dni,nombre,apellidos,direccion);
+        
+        Oabogados.altaAbogado(abo);
+    }
+
+    public static void modificarAbogado(String dni, String nombre, String apellidos, String direccion) throws Exception{
+        Abogado a = Oabogados.consultaUno(dni,false);
+        if (a == null) {
+            throw new FilaNoEncontrada();
+        }
+        
+        // creo abogado
+        Abogado abo = new Abogado(dni,nombre,apellidos,direccion);
+        
+        // modificar abogado
+        Oabogados.modificarAbogado(abo);
+    }
+
+    public static void bajaAbogado() throws Exception{
+        Oabogados.bajaAbogado(ab.getDni());
+    }
+    
     // datos de los clientes en memoria
     public static String getDniCli(int pos) {
         return listaCl.get(pos).getDni();
@@ -241,6 +265,23 @@ public class EjercicioBaseDatos3 {
         return cl.getCorreo();
     }
     
+    // datos de abogado en memoria
+    public static String getDniAbo() {
+        return ab.getDni();
+    }
+    
+    public static String getNombreAbo() {
+        return ab.getNombre();
+    }
+    
+    public static String getApellidosAbo() {
+        return ab.getApellido();
+    }
+    
+    public static String getDireccionAbo() {
+        return ab.getDireccion();
+    }
+    
     // datos de caso en memoria
     public static String getEstadoCaso() {
         return ca.getEstado();
@@ -257,4 +298,46 @@ public class EjercicioBaseDatos3 {
     public static void salir() {
         System.exit(0);
     } 
+
+    public static void modificarCaso(String fecha, String dni, int selectedIndex) throws Exception{
+        
+        DateTimeFormatter form = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate fechaIn = LocalDate.parse(fecha, form);
+        
+        Caso c = listaC.get(selectedIndex);
+        c.setJuicioInicio(fechaIn);
+        c.setCliente(Ocliente.consultaUno(dni, false));
+        
+        Ocasos.modificarCaso(c);
+    }
+
+    public static void consultaCasoPorDniCli( String dni) throws Exception{
+        cl = Ocliente.consultaUno(dni, true);
+    }
+
+    public static void llenarCasoCliente(JTextArea taSalida)  throws Exception{
+        taSalida.setText(cl.toString2());
+    }
+
+    public static void consultaCasoPorDniAbo(String dni)  throws Exception{
+        ab = Oabogados.consultaUno(dni, false);
+    }
+
+    public static void llenarCasoAbogado(JTextArea taSalida)  throws Exception{
+        taSalida.setText(ab.toString());
+    }
+
+    public static void consultaCasoPorID(String ID)  throws Exception{
+        ca = Ocasos.consultaCasosPorID(ID);
+    }
+
+    public static void llenarCaso(JTextArea taSalida)  throws Exception{
+        taSalida.setText(ca.toString2());
+    }
+
+    public static void consultaAbogadoPorDni(String dni, boolean b) throws Exception{
+        ab = Oabogados.consultaUno(dni, b);
+    }
+
+    
 }

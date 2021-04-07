@@ -44,7 +44,7 @@ public class Abogado extends Persona{
 
     @Override
     public String toString() {
-        return "Abogado{" + "dni=" + this.getDni() + ", nombre=" + this.getNombre() + ", apellidos=" + this.getApellido() + ", direccion=" + this.getDireccion() + '}';
+        return "Abogado{" + super.toString() + '}';
     }
     
     

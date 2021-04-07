@@ -6,7 +6,6 @@
 package modelo;
 
 import java.util.ArrayList;
-import java.util.logging.Logger;
 
 /**
  *
@@ -76,5 +75,15 @@ public class Cliente extends Persona{
         }
         return ret;
     }
+
+    public String toString2() {
+        String ret = "Cliente{ " + super.toString() + "telefono=" + telefono + ", correo=" + correo + ", casos=";
+        for (int x = 0;x < casos.size(); x++) {
+            ret += casos.get(x).getID() + ", ";
+        }
+        return ret += '}';
+    }
+
+    
     
 }

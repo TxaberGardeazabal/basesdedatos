@@ -249,7 +249,8 @@ public class Vprincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_miCasBajaActionPerformed
 
     private void miCasConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miCasConsultaActionPerformed
-        // TODO add your handling code here:
+        vConsultaCaso = new VconsultaCasos(this,true);
+        vConsultaCaso.setVisible(true);
     }//GEN-LAST:event_miCasConsultaActionPerformed
 
     private void miSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miSalirActionPerformed
@@ -268,15 +269,9 @@ public class Vprincipal extends javax.swing.JFrame {
     private static VbajaCaso vBajaCaso;
     private static VterminarCaso vTerminarCaso;
     public static VmodificarCaso vModificarCaso;
+    public static VconsultaCasos vConsultaCaso;
     
-    // cierre con parametro
-    public static void cancelar(int o) {
-        switch (o) {
-            case 0: vcambioPer.dispose(); break;
-            
-        }
-        
-    }
+    
     /**
      * @param args the command line arguments
      */

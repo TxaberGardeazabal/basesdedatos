@@ -6,6 +6,7 @@
 package vista;
 
 import ejerciciobasedatos3.EjercicioBaseDatos3;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -141,7 +142,8 @@ public class VmodificarCaso extends javax.swing.JDialog {
 
     private void bAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAceptarActionPerformed
         try {
-            
+            EjercicioBaseDatos3.modificarCaso(tfFechaIn.getText(),tfDni.getText(),cbCaso.getSelectedIndex());
+            JOptionPane.showMessageDialog(null, "operacion realizada con exito");
         }
         catch (Exception e) {
             System.out.println(e.getClass());

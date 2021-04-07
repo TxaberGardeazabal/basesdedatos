@@ -109,6 +109,11 @@ public class Caso {
         
         return ret;
     }
+
+    
+    public String toString2() {
+        return "Caso{" + "ID=" + ID + ", juicioInicio=" + juicioInicio + ", juicioFin=" + juicioFin + ", estado=" + estado + ", cliente=" + cliente + ", abogadoCargo=" + abogadoCargo + '}';
+    }
     
     
 }

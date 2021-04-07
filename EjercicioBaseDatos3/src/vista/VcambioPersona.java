@@ -18,6 +18,7 @@ public class VcambioPersona extends javax.swing.JDialog {
 
     private String persona;
     private String operacion;
+    
     /**
      * Creates new form VcambioPersona
      */
@@ -28,7 +29,10 @@ public class VcambioPersona extends javax.swing.JDialog {
         
         persona = per;
         operacion = op;
-        
+        if (persona.equals("abogado")) {
+            jTitulo.setText("Abogados");
+        }
+            
         if (!op.equals("alta"))
             pedirDni();
     }
@@ -201,7 +205,28 @@ public class VcambioPersona extends javax.swing.JDialog {
                         }
                     }
                 }    
-            }  
+            }
+            else {
+                // tomamos que es abogado
+                if (operacion.equals("alta")) {
+                    EjercicioBaseDatos3.altaAbogado(tfDni.getText(),tfNombre.getText(),tfApellidos.getText(),tfDireccion.getText());
+                    JOptionPane.showMessageDialog(this, "abogado añadido");
+                }
+                else {
+                    if (operacion.equals("modificar")) {
+                        EjercicioBaseDatos3.modificarAbogado(tfDni.getText(),tfNombre.getText(),tfApellidos.getText(),tfDireccion.getText());
+                        JOptionPane.showMessageDialog(this, "cliente modificado");
+                    }
+                    else {
+                        // sera baja
+                        int x = JOptionPane.showConfirmDialog(this, "estas seguro de querer borrar el abogado "+EjercicioBaseDatos3.getDniAbo()+"?");
+                        if (x == 0) {
+                            EjercicioBaseDatos3.bajaAbogado();
+                            JOptionPane.showMessageDialog(this, "abogado borrado");
+                        }
+                    }
+                }
+            }
         }
         catch (Exception e) {
             System.out.println(e.getClass());
@@ -210,7 +235,7 @@ public class VcambioPersona extends javax.swing.JDialog {
     }//GEN-LAST:event_bAceptarActionPerformed
 
     private void bCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCancelarActionPerformed
-        Vprincipal.cancelar(0);
+        this.dispose();
     }//GEN-LAST:event_bCancelarActionPerformed
 
     private void tfDniFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tfDniFocusLost
@@ -229,6 +254,19 @@ public class VcambioPersona extends javax.swing.JDialog {
                     
                     if (operacion.equals("modificar"))
                         habilitar();
+                }
+                else {
+                    // sera abogado
+                    EjercicioBaseDatos3.consultaAbogadoPorDni(tfDni.getText(),false);
+                
+                    tfDni.setEditable(false);
+                    tfNombre.setText(EjercicioBaseDatos3.getNombreAbo());
+                    tfApellidos.setText(EjercicioBaseDatos3.getApellidosAbo());
+                    tfDireccion.setText(EjercicioBaseDatos3.getDireccionAbo());
+                    
+                    tfNombre.setEditable(true);
+                    tfApellidos.setEditable(true);
+                    tfDireccion.setEditable(true);
                 }
             }
             catch (FilaNoEncontrada e) {

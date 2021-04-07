@@ -142,4 +142,16 @@ public class OpCasos {
         con.desconectar();
         return ret;
     }
+
+    public void modificarCaso(Caso c) throws Exception{
+        con.conectar();
+        
+        PreparedStatement ps = con.getCon().prepareStatement("UPDATE `casos_juicios` SET juicioInicio = ?, cliente = ? WHERE ID = ?;");
+        ps.setDate(1, java.sql.Date.valueOf(c.getJuicioInicio()));
+        ps.setString(2, c.getCliente().getDni());
+        ps.setInt(3, c.getID());
+        ps.executeUpdate();
+        
+        con.desconectar();
+    }
 }
