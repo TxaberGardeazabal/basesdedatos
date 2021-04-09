@@ -203,7 +203,8 @@ public class Vprincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_miCliBajaActionPerformed
 
     private void miAboModifActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miAboModifActionPerformed
-        // TODO add your handling code here:
+        vcambioPer = new VcambioPersona(this,true,"abogado","modificar");
+        vcambioPer.setVisible(true);
     }//GEN-LAST:event_miAboModifActionPerformed
 
     private void miCasModifActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miCasModifActionPerformed
@@ -227,15 +228,18 @@ public class Vprincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_miCliConsultaActionPerformed
 
     private void miAboAltaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miAboAltaActionPerformed
-        // TODO add your handling code here:
+        vcambioPer = new VcambioPersona(this,true,"abogado","alta");
+        vcambioPer.setVisible(true);
     }//GEN-LAST:event_miAboAltaActionPerformed
 
     private void miAboBajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miAboBajaActionPerformed
-        // TODO add your handling code here:
+        vcambioPer = new VcambioPersona(this,true,"abogado","baja");
+        vcambioPer.setVisible(true);
     }//GEN-LAST:event_miAboBajaActionPerformed
 
     private void miAboConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miAboConsultaActionPerformed
-        // TODO add your handling code here:
+        vconsultaPer = new VconsultaPersona(this,true,"abogado");
+        vconsultaPer.setVisible(true);
     }//GEN-LAST:event_miAboConsultaActionPerformed
 
     private void miCasAltaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miCasAltaActionPerformed

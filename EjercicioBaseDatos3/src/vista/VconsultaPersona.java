@@ -11,6 +11,7 @@ package vista;
  */
 import ejerciciobasedatos3.EjercicioBaseDatos3;
 import javax.swing.JOptionPane;
+import excepciones.*;
 
 public class VconsultaPersona extends javax.swing.JDialog {
 
@@ -33,6 +34,11 @@ public class VconsultaPersona extends javax.swing.JDialog {
         bSiguiente.setVisible(false);
         
         this.per = per;
+        if (per.equals("abogado")) {
+            tfTelefono.setEditable(false);
+            tfCorreo.setEditable(false);
+        }
+            
     }
 
 
@@ -265,6 +271,14 @@ public class VconsultaPersona extends javax.swing.JDialog {
                 // llena el testarea
                 EjercicioBaseDatos3.textoClientes(taCasos);
             }
+            else {
+                //abogados
+                // validar
+                
+                EjercicioBaseDatos3.consultaAbogadoPorDni(tfDniCaso.getText(), true);
+                
+                EjercicioBaseDatos3.textoAbogados(taCasos);
+            }
             
         }
         catch(Exception e) {
@@ -276,6 +290,8 @@ public class VconsultaPersona extends javax.swing.JDialog {
         // bloqueo los controles en caso de estar haciendo una consulta
         if (!consultandoTodo) {
         try {
+            
+            
             if (per.equals("Cliente")) {
                 // hay espacio para mas funcionalidades
                 // validar
@@ -289,6 +305,17 @@ public class VconsultaPersona extends javax.swing.JDialog {
                 }
                 
             }
+            else {
+                // abogado
+                if (tfDni.getText().isEmpty() || tfNombre.getText().isEmpty() || tfApellidos.getText().isEmpty() || tfDireccion.getText().isEmpty()) {
+                    // vamos a querer consultar todo
+                    EjercicioBaseDatos3.consultaTodoAbogado();
+                    bSiguiente.setVisible(true);
+                    bConsulta.setEnabled(false);
+                    consultandoTodo = true;
+                    bSiguiente.doClick();
+                }
+            }
             
             
         }
@@ -300,43 +327,70 @@ public class VconsultaPersona extends javax.swing.JDialog {
 
     private void bSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bSiguienteActionPerformed
         try {
-            if (pos != EjercicioBaseDatos3.getCantidadCli()) {
-                tfDni.setText(EjercicioBaseDatos3.getDniCli(pos));
-                tfNombre.setText(EjercicioBaseDatos3.getNombreCli(pos));
-                tfApellidos.setText(EjercicioBaseDatos3.getApellidosCli(pos));
-                tfDireccion.setText(EjercicioBaseDatos3.getDireccionCli(pos));
-                tfTelefono.setText(EjercicioBaseDatos3.getTelefonoCli(pos));
-                tfCorreo.setText(EjercicioBaseDatos3.getCorreoCli(pos));
+            if (per.equals("Cliente")) {
+            
+                if (pos != EjercicioBaseDatos3.getCantidadCli()) {
                 
-                pos++;
-            }
-            else {
-                // se termina la consulta
-                tfDni.setText("");
-                tfNombre.setText("");
-                tfApellidos.setText("");
-                tfDireccion.setText("");
-                tfTelefono.setText("");
-                tfCorreo.setText("");
+                    tfDni.setText(EjercicioBaseDatos3.getDniCli(pos));
+                    tfNombre.setText(EjercicioBaseDatos3.getNombreCli(pos));
+                    tfApellidos.setText(EjercicioBaseDatos3.getApellidosCli(pos));
+                    tfDireccion.setText(EjercicioBaseDatos3.getDireccionCli(pos));
+                    tfTelefono.setText(EjercicioBaseDatos3.getTelefonoCli(pos));
+                    tfCorreo.setText(EjercicioBaseDatos3.getCorreoCli(pos));
                 
-                // por si la tabla esta vacia
-                if (pos == 0) {
-                    JOptionPane.showMessageDialog(null,"no existen personas el la tabla de "+per);
+                    pos++;
+                    
+                }
+                else {
+                    // se termina la consulta
+                    tfDni.setText("");
+                    tfNombre.setText("");
+                    tfApellidos.setText("");
+                    tfDireccion.setText("");
+                    tfTelefono.setText("");
+                    tfCorreo.setText("");
+                    
+                    this.terminar();
                 }
                 
-                bConsulta.setEnabled(true);
-                bSiguiente.setVisible(false);
-                consultandoTodo = false;
-                pos = 0;
+            }
+            else {
+                if (pos != EjercicioBaseDatos3.getCantidadAbo()) {
+                    tfDni.setText(EjercicioBaseDatos3.getDniAbo(pos));
+                    tfNombre.setText(EjercicioBaseDatos3.getNombreAbo(pos));
+                    tfApellidos.setText(EjercicioBaseDatos3.getApellidosAbo(pos));
+                    tfDireccion.setText(EjercicioBaseDatos3.getDireccionAbo(pos));
+                    
+                    pos++;
+                }
+                else {
+                    // se termina la consulta
+                    tfDni.setText("");
+                    tfNombre.setText("");
+                    tfApellidos.setText("");
+                    tfDireccion.setText("");
+                    
+                    this.terminar();
+                }
                 
             }
-            
         }
         catch (Exception e) {
             System.out.println(e.getClass());
         }
     }//GEN-LAST:event_bSiguienteActionPerformed
 
+    private void terminar() {
+        // por si la tabla esta vacia
+        if (pos == 0) {
+            JOptionPane.showMessageDialog(null,"no existen personas el la tabla de "+per);
+        }
+                
+        bConsulta.setEnabled(true);
+        bSiguiente.setVisible(false);
+        consultandoTodo = false;
+        pos = 0;
+    }
     /**
      * @param args the command line arguments
      */

@@ -282,6 +282,27 @@ public class EjercicioBaseDatos3 {
         return ab.getDireccion();
     }
     
+    // datos de abogados en memoria
+    public static String getDniAbo(int pos) {
+        return listaAb.get(pos).getDni();
+    }
+    
+    public static String getNombreAbo(int pos) {
+        return listaAb.get(pos).getNombre();
+    }
+    
+    public static String getApellidosAbo(int pos) {
+        return listaAb.get(pos).getApellido();
+    }
+    
+    public static String getDireccionAbo(int pos) {
+        return listaAb.get(pos).getDireccion();
+    }
+    
+    public static int getCantidadAbo() {
+        return listaAb.size();
+    }
+    
     // datos de caso en memoria
     public static String getEstadoCaso() {
         return ca.getEstado();
@@ -337,6 +358,18 @@ public class EjercicioBaseDatos3 {
 
     public static void consultaAbogadoPorDni(String dni, boolean b) throws Exception{
         ab = Oabogados.consultaUno(dni, b);
+    }
+
+    public static void textoAbogados(JTextArea texto) {
+        texto.setText(ab.toString2());
+    }
+
+    public static ArrayList<Caso> consultaCasosAbo(String dni) throws Exception{
+        return OabogadoCasos.consultaCasosPorAbogado(dni);
+    }
+
+    public static void consultaTodoAbogado() throws Exception{
+        listaAb = Oabogados.consultaTodo();
     }
 
     

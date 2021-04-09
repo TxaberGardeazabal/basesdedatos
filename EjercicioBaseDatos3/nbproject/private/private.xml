@@ -5,7 +5,7 @@
             <url>src/vista/VconsultaPersona.java</url>
             <bookmark id="1">
                 <name/>
-                <line>335</line>
+                <line>378</line>
                 <key/>
             </bookmark>
         </file>
@@ -15,10 +15,10 @@
             <file>file:/C:/Users/txaber/Documents/NetBeansProjects/EjercicioBaseDatos3/src/datobase/OpAbogados.java</file>
             <file>file:/C:/Users/txaber/Documents/NetBeansProjects/EjercicioBaseDatos3/src/modelo/Caso.java</file>
             <file>file:/C:/Users/txaber/Documents/NetBeansProjects/EjercicioBaseDatos3/src/vista/Vprincipal.java</file>
+            <file>file:/C:/Users/txaber/Documents/NetBeansProjects/EjercicioBaseDatos3/src/modelo/Abogado.java</file>
             <file>file:/C:/Users/txaber/Documents/NetBeansProjects/EjercicioBaseDatos3/src/ejerciciobasedatos3/EjercicioBaseDatos3.java</file>
             <file>file:/C:/Users/txaber/Documents/NetBeansProjects/EjercicioBaseDatos3/src/datobase/OpAbogadoLlevaCasos.java</file>
-            <file>file:/C:/Users/txaber/Documents/NetBeansProjects/EjercicioBaseDatos3/src/vista/VmodificarCaso.java</file>
-            <file>file:/C:/Users/txaber/Documents/NetBeansProjects/EjercicioBaseDatos3/src/datobase/Conexion.java</file>
+            <file>file:/C:/Users/txaber/Documents/NetBeansProjects/EjercicioBaseDatos3/src/vista/VconsultaPersona.java</file>
             <file>file:/C:/Users/txaber/Documents/NetBeansProjects/EjercicioBaseDatos3/src/modelo/Cliente.java</file>
             <file>file:/C:/Users/txaber/Documents/NetBeansProjects/EjercicioBaseDatos3/src/datobase/OpCasos.java</file>
             <file>file:/C:/Users/txaber/Documents/NetBeansProjects/EjercicioBaseDatos3/src/datobase/OpClientes.java</file>

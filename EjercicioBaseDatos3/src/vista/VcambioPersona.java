@@ -195,6 +195,7 @@ public class VcambioPersona extends javax.swing.JDialog {
                     if (operacion.equals("modificar")) {
                         EjercicioBaseDatos3.modificarCliente(tfDni.getText(),tfNombre.getText(),tfApellidos.getText(),tfDireccion.getText(),tfCorreo.getText(),tfTelefono.getText(),false);
                         JOptionPane.showMessageDialog(this, "cliente modificado");
+                        this.dispose();
                     }
                     else {
                         // sera baja
@@ -203,6 +204,7 @@ public class VcambioPersona extends javax.swing.JDialog {
                             EjercicioBaseDatos3.bajaCliente();
                             JOptionPane.showMessageDialog(this, "cliente borrado");
                         }
+                        this.dispose();
                     }
                 }    
             }
@@ -215,7 +217,8 @@ public class VcambioPersona extends javax.swing.JDialog {
                 else {
                     if (operacion.equals("modificar")) {
                         EjercicioBaseDatos3.modificarAbogado(tfDni.getText(),tfNombre.getText(),tfApellidos.getText(),tfDireccion.getText());
-                        JOptionPane.showMessageDialog(this, "cliente modificado");
+                        JOptionPane.showMessageDialog(this, "abogado modificado");
+                        this.dispose();
                     }
                     else {
                         // sera baja
@@ -224,13 +227,14 @@ public class VcambioPersona extends javax.swing.JDialog {
                             EjercicioBaseDatos3.bajaAbogado();
                             JOptionPane.showMessageDialog(this, "abogado borrado");
                         }
+                        this.dispose();
                     }
                 }
             }
         }
         catch (Exception e) {
             System.out.println(e.getClass());
-            JOptionPane.showMessageDialog(this, "a");
+            //JOptionPane.showMessageDialog(this, "a");
         }
     }//GEN-LAST:event_bAceptarActionPerformed
 
@@ -252,8 +256,9 @@ public class VcambioPersona extends javax.swing.JDialog {
                     tfTelefono.setText(EjercicioBaseDatos3.getTelefonoCli());
                     tfCorreo.setText(EjercicioBaseDatos3.getCorreoCli());
                     
-                    if (operacion.equals("modificar"))
-                        habilitar();
+                    if (operacion.equals("modificar")) {
+                        habilitarCli();
+                    }
                 }
                 else {
                     // sera abogado
@@ -264,10 +269,11 @@ public class VcambioPersona extends javax.swing.JDialog {
                     tfApellidos.setText(EjercicioBaseDatos3.getApellidosAbo());
                     tfDireccion.setText(EjercicioBaseDatos3.getDireccionAbo());
                     
-                    tfNombre.setEditable(true);
-                    tfApellidos.setEditable(true);
-                    tfDireccion.setEditable(true);
+                    if (operacion.equals("modificar")) {
+                        habilitarAbo();
+                    }
                 }
+                
             }
             catch (FilaNoEncontrada e) {
                 JOptionPane.showMessageDialog(this, "no se encontro la persona con ese dni");
@@ -288,12 +294,18 @@ public class VcambioPersona extends javax.swing.JDialog {
     }
     
     
-    private void habilitar() {
+    private void habilitarCli() {
         tfNombre.setEditable(true);
         tfApellidos.setEditable(true);
         tfDireccion.setEditable(true);
         tfTelefono.setEditable(true);
         tfCorreo.setEditable(true);
+    }
+    
+    private void habilitarAbo() {
+        tfNombre.setEditable(true);
+        tfApellidos.setEditable(true);
+        tfDireccion.setEditable(true);
     }
     /**
      * @param args the command line arguments

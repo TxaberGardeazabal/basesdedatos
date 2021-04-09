@@ -47,5 +47,19 @@ public class Abogado extends Persona{
         return "Abogado{" + super.toString() + '}';
     }
     
+    public String toString2() {
+        String ret = "";
+        for (int x = 0;x < casos.size(); x++) {
+            ret += "Caso: "+String.valueOf(casos.get(1).getID())+" fechaInicio: "+casos.get(x).getJuicioInicio().toString()
+                    + " estado: "+casos.get(x).getEstado();
+            if (casos.get(x).getJuicioFin() == null) {
+                ret += "\n"; 
+            }
+            else {
+                ret += " fechaFin: "+casos.get(x).getJuicioFin().toString()+"\n";
+            }
+        }
+        return ret;
+    }
     
 }

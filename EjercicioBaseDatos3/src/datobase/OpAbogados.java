@@ -88,7 +88,7 @@ public class OpAbogados {
         res.next();
         a = new Abogado(res.getString("dni"),res.getString("nombre"),res.getString("apellidos"),res.getString("direccion"));
         if(casos) {
-            // buscar casos
+            a.setCasos(EjercicioBaseDatos3.consultaCasosAbo(dni));
         }
         
         con.desconectar();

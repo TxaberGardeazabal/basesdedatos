@@ -51,4 +51,27 @@ public class OpAbogadoLlevaCasos {
         
         con.desconectar();
     }
+
+    public ArrayList<Caso> consultaCasosPorAbogado(String dni) throws Exception{
+        ArrayList<Caso> lista = new ArrayList();
+        con.conectar();
+        
+        PreparedStatement ps = con.getCon().prepareStatement("SELECT ca.ID, ca.juicioInicio, ca.JuicioFin, ca.estado, ca.cliente FROM `abogadollevacasos` ac, `casos_juicios` ca WHERE ac.dni = ? AND ac.ID = ca.ID;");
+        ps.setString(1, dni);
+        ResultSet res = ps.executeQuery();
+        
+        while (res.next()){
+            Caso c = new Caso();
+            c.setID(res.getInt("ID"));
+            c.setJuicioInicio(res.getDate("juicioInicio").toLocalDate());
+            c.setEstado(res.getString("estado"));
+            if (!(res.getDate("juicioFin") == null))
+                c.setJuicioFin(res.getDate("juicioFin").toLocalDate());
+            
+            lista.add(c);
+        }
+        
+        con.desconectar();
+        return lista;
+    }
 }
