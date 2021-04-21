@@ -6,7 +6,7 @@
 
 package vista;
 
-import ejerciciobasedatos2.EjercicioBaseDatos2;
+import ejerciciobasedatos5.EjercicioBaseDatos5;
 import excepciones.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -25,7 +25,7 @@ public class Vlista extends javax.swing.JDialog {
         setLocationRelativeTo(parent);
         try {
             
-            EjercicioBaseDatos2.listaEventos(cbEventos);
+            EjercicioBaseDatos5.listaEventos(cbEventos);
         }
         catch (FilaNoEncontrada e) {
             JOptionPane.showMessageDialog(parent,"no se encuentran eventos");
@@ -121,7 +121,7 @@ public class Vlista extends javax.swing.JDialog {
 
     private void cbEventosFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cbEventosFocusLost
         try {
-            EjercicioBaseDatos2.listaAsistentes(taAsistentes,(String) cbEventos.getSelectedItem());
+            EjercicioBaseDatos5.listaAsistentes(taAsistentes,(String) cbEventos.getSelectedItem());
         }
         catch(FilaNoEncontrada e) {
             taAsistentes.setText("no hay asistentes para ese evento");

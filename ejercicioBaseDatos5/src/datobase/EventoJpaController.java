@@ -14,7 +14,6 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import modelo.Persona;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -36,23 +35,23 @@ public class EventoJpaController implements Serializable {
     }
 
     public void create(Evento evento) throws PreexistingEntityException, Exception {
-        if (evento.getPersonaCollection() == null) {
-            evento.setPersonaCollection(new ArrayList<Persona>());
+        if (evento.getPersonaList() == null) {
+            evento.setPersonaList(new ArrayList<Persona>());
         }
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Collection<Persona> attachedPersonaCollection = new ArrayList<Persona>();
-            for (Persona personaCollectionPersonaToAttach : evento.getPersonaCollection()) {
-                personaCollectionPersonaToAttach = em.getReference(personaCollectionPersonaToAttach.getClass(), personaCollectionPersonaToAttach.getDni());
-                attachedPersonaCollection.add(personaCollectionPersonaToAttach);
+            List<Persona> attachedPersonaList = new ArrayList<Persona>();
+            for (Persona personaListPersonaToAttach : evento.getPersonaList()) {
+                personaListPersonaToAttach = em.getReference(personaListPersonaToAttach.getClass(), personaListPersonaToAttach.getDni());
+                attachedPersonaList.add(personaListPersonaToAttach);
             }
-            evento.setPersonaCollection(attachedPersonaCollection);
+            evento.setPersonaList(attachedPersonaList);
             em.persist(evento);
-            for (Persona personaCollectionPersona : evento.getPersonaCollection()) {
-                personaCollectionPersona.getEventoCollection().add(evento);
-                personaCollectionPersona = em.merge(personaCollectionPersona);
+            for (Persona personaListPersona : evento.getPersonaList()) {
+                personaListPersona.getEventoList().add(evento);
+                personaListPersona = em.merge(personaListPersona);
             }
             em.getTransaction().commit();
         } catch (Exception ex) {
@@ -73,26 +72,26 @@ public class EventoJpaController implements Serializable {
             em = getEntityManager();
             em.getTransaction().begin();
             Evento persistentEvento = em.find(Evento.class, evento.getNombre());
-            Collection<Persona> personaCollectionOld = persistentEvento.getPersonaCollection();
-            Collection<Persona> personaCollectionNew = evento.getPersonaCollection();
-            Collection<Persona> attachedPersonaCollectionNew = new ArrayList<Persona>();
-            for (Persona personaCollectionNewPersonaToAttach : personaCollectionNew) {
-                personaCollectionNewPersonaToAttach = em.getReference(personaCollectionNewPersonaToAttach.getClass(), personaCollectionNewPersonaToAttach.getDni());
-                attachedPersonaCollectionNew.add(personaCollectionNewPersonaToAttach);
+            List<Persona> personaListOld = persistentEvento.getPersonaList();
+            List<Persona> personaListNew = evento.getPersonaList();
+            List<Persona> attachedPersonaListNew = new ArrayList<Persona>();
+            for (Persona personaListNewPersonaToAttach : personaListNew) {
+                personaListNewPersonaToAttach = em.getReference(personaListNewPersonaToAttach.getClass(), personaListNewPersonaToAttach.getDni());
+                attachedPersonaListNew.add(personaListNewPersonaToAttach);
             }
-            personaCollectionNew = attachedPersonaCollectionNew;
-            evento.setPersonaCollection(personaCollectionNew);
+            personaListNew = attachedPersonaListNew;
+            evento.setPersonaList(personaListNew);
             evento = em.merge(evento);
-            for (Persona personaCollectionOldPersona : personaCollectionOld) {
-                if (!personaCollectionNew.contains(personaCollectionOldPersona)) {
-                    personaCollectionOldPersona.getEventoCollection().remove(evento);
-                    personaCollectionOldPersona = em.merge(personaCollectionOldPersona);
+            for (Persona personaListOldPersona : personaListOld) {
+                if (!personaListNew.contains(personaListOldPersona)) {
+                    personaListOldPersona.getEventoList().remove(evento);
+                    personaListOldPersona = em.merge(personaListOldPersona);
                 }
             }
-            for (Persona personaCollectionNewPersona : personaCollectionNew) {
-                if (!personaCollectionOld.contains(personaCollectionNewPersona)) {
-                    personaCollectionNewPersona.getEventoCollection().add(evento);
-                    personaCollectionNewPersona = em.merge(personaCollectionNewPersona);
+            for (Persona personaListNewPersona : personaListNew) {
+                if (!personaListOld.contains(personaListNewPersona)) {
+                    personaListNewPersona.getEventoList().add(evento);
+                    personaListNewPersona = em.merge(personaListNewPersona);
                 }
             }
             em.getTransaction().commit();
@@ -124,10 +123,10 @@ public class EventoJpaController implements Serializable {
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The evento with id " + id + " no longer exists.", enfe);
             }
-            Collection<Persona> personaCollection = evento.getPersonaCollection();
-            for (Persona personaCollectionPersona : personaCollection) {
-                personaCollectionPersona.getEventoCollection().remove(evento);
-                personaCollectionPersona = em.merge(personaCollectionPersona);
+            List<Persona> personaList = evento.getPersonaList();
+            for (Persona personaListPersona : personaList) {
+                personaListPersona.getEventoList().remove(evento);
+                personaListPersona = em.merge(personaListPersona);
             }
             em.remove(evento);
             em.getTransaction().commit();

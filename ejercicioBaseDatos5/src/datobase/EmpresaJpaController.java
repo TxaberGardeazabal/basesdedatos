@@ -5,20 +5,16 @@
  */
 package datobase;
 
-import datobase.exceptions.IllegalOrphanException;
 import datobase.exceptions.NonexistentEntityException;
 import datobase.exceptions.PreexistingEntityException;
 import java.io.Serializable;
+import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import modelo.Persona;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import modelo.Empresa;
 
 /**
@@ -37,29 +33,11 @@ public class EmpresaJpaController implements Serializable {
     }
 
     public void create(Empresa empresa) throws PreexistingEntityException, Exception {
-        if (empresa.getPersonaCollection() == null) {
-            empresa.setPersonaCollection(new ArrayList<Persona>());
-        }
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Collection<Persona> attachedPersonaCollection = new ArrayList<Persona>();
-            for (Persona personaCollectionPersonaToAttach : empresa.getPersonaCollection()) {
-                personaCollectionPersonaToAttach = em.getReference(personaCollectionPersonaToAttach.getClass(), personaCollectionPersonaToAttach.getDni());
-                attachedPersonaCollection.add(personaCollectionPersonaToAttach);
-            }
-            empresa.setPersonaCollection(attachedPersonaCollection);
             em.persist(empresa);
-            for (Persona personaCollectionPersona : empresa.getPersonaCollection()) {
-                Empresa oldEmpresaOfPersonaCollectionPersona = personaCollectionPersona.getEmpresa();
-                personaCollectionPersona.setEmpresa(empresa);
-                personaCollectionPersona = em.merge(personaCollectionPersona);
-                if (oldEmpresaOfPersonaCollectionPersona != null) {
-                    oldEmpresaOfPersonaCollectionPersona.getPersonaCollection().remove(personaCollectionPersona);
-                    oldEmpresaOfPersonaCollectionPersona = em.merge(oldEmpresaOfPersonaCollectionPersona);
-                }
-            }
             em.getTransaction().commit();
         } catch (Exception ex) {
             if (findEmpresa(empresa.getNombre()) != null) {
@@ -73,45 +51,12 @@ public class EmpresaJpaController implements Serializable {
         }
     }
 
-    public void edit(Empresa empresa) throws IllegalOrphanException, NonexistentEntityException, Exception {
+    public void edit(Empresa empresa) throws NonexistentEntityException, Exception {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Empresa persistentEmpresa = em.find(Empresa.class, empresa.getNombre());
-            Collection<Persona> personaCollectionOld = persistentEmpresa.getPersonaCollection();
-            Collection<Persona> personaCollectionNew = empresa.getPersonaCollection();
-            List<String> illegalOrphanMessages = null;
-            for (Persona personaCollectionOldPersona : personaCollectionOld) {
-                if (!personaCollectionNew.contains(personaCollectionOldPersona)) {
-                    if (illegalOrphanMessages == null) {
-                        illegalOrphanMessages = new ArrayList<String>();
-                    }
-                    illegalOrphanMessages.add("You must retain Persona " + personaCollectionOldPersona + " since its empresa field is not nullable.");
-                }
-            }
-            if (illegalOrphanMessages != null) {
-                throw new IllegalOrphanException(illegalOrphanMessages);
-            }
-            Collection<Persona> attachedPersonaCollectionNew = new ArrayList<Persona>();
-            for (Persona personaCollectionNewPersonaToAttach : personaCollectionNew) {
-                personaCollectionNewPersonaToAttach = em.getReference(personaCollectionNewPersonaToAttach.getClass(), personaCollectionNewPersonaToAttach.getDni());
-                attachedPersonaCollectionNew.add(personaCollectionNewPersonaToAttach);
-            }
-            personaCollectionNew = attachedPersonaCollectionNew;
-            empresa.setPersonaCollection(personaCollectionNew);
             empresa = em.merge(empresa);
-            for (Persona personaCollectionNewPersona : personaCollectionNew) {
-                if (!personaCollectionOld.contains(personaCollectionNewPersona)) {
-                    Empresa oldEmpresaOfPersonaCollectionNewPersona = personaCollectionNewPersona.getEmpresa();
-                    personaCollectionNewPersona.setEmpresa(empresa);
-                    personaCollectionNewPersona = em.merge(personaCollectionNewPersona);
-                    if (oldEmpresaOfPersonaCollectionNewPersona != null && !oldEmpresaOfPersonaCollectionNewPersona.equals(empresa)) {
-                        oldEmpresaOfPersonaCollectionNewPersona.getPersonaCollection().remove(personaCollectionNewPersona);
-                        oldEmpresaOfPersonaCollectionNewPersona = em.merge(oldEmpresaOfPersonaCollectionNewPersona);
-                    }
-                }
-            }
             em.getTransaction().commit();
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
@@ -129,7 +74,7 @@ public class EmpresaJpaController implements Serializable {
         }
     }
 
-    public void destroy(String id) throws IllegalOrphanException, NonexistentEntityException {
+    public void destroy(String id) throws NonexistentEntityException {
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -140,17 +85,6 @@ public class EmpresaJpaController implements Serializable {
                 empresa.getNombre();
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The empresa with id " + id + " no longer exists.", enfe);
-            }
-            List<String> illegalOrphanMessages = null;
-            Collection<Persona> personaCollectionOrphanCheck = empresa.getPersonaCollection();
-            for (Persona personaCollectionOrphanCheckPersona : personaCollectionOrphanCheck) {
-                if (illegalOrphanMessages == null) {
-                    illegalOrphanMessages = new ArrayList<String>();
-                }
-                illegalOrphanMessages.add("This Empresa (" + empresa + ") cannot be destroyed since the Persona " + personaCollectionOrphanCheckPersona + " in its personaCollection field has a non-nullable empresa field.");
-            }
-            if (illegalOrphanMessages != null) {
-                throw new IllegalOrphanException(illegalOrphanMessages);
             }
             em.remove(empresa);
             em.getTransaction().commit();

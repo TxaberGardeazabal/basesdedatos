@@ -5,6 +5,8 @@
     <class>modelo.Persona</class>
     <class>modelo.Evento</class>
     <class>modelo.Empresa</class>
+    <class>modelo.Eventos</class>
+    <class>modelo.Personas</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/ejercicio2?zeroDateTimeBehavior=convertToNull"/>
       <property name="javax.persistence.jdbc.user" value="root"/>

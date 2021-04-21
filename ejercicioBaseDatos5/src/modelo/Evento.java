@@ -6,8 +6,8 @@
 package modelo;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -63,11 +63,11 @@ public class Evento implements Serializable {
     @Basic(optional = false)
     @Column(name = "maxAsistencia")
     private int maxAsistencia;
-    @JoinTable(name = "persona-eventos", joinColumns = {
+    @JoinTable(name = "personaeventos", joinColumns = {
         @JoinColumn(name = "nombre", referencedColumnName = "nombre")}, inverseJoinColumns = {
         @JoinColumn(name = "dni", referencedColumnName = "dni")})
     @ManyToMany
-    private Collection<Persona> personaCollection;
+    private List<Persona> personaList;
 
     public Evento() {
     }
@@ -134,12 +134,12 @@ public class Evento implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Persona> getPersonaCollection() {
-        return personaCollection;
+    public List<Persona> getPersonaList() {
+        return personaList;
     }
 
-    public void setPersonaCollection(Collection<Persona> personaCollection) {
-        this.personaCollection = personaCollection;
+    public void setPersonaList(List<Persona> personaList) {
+        this.personaList = personaList;
     }
 
     @Override

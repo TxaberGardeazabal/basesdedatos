@@ -5,10 +5,10 @@
  */
 package vista;
 
-import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
-import ejerciciobasedatos2.EjercicioBaseDatos2;
+import ejerciciobasedatos5.EjercicioBaseDatos5;
 import javax.swing.JOptionPane;
 import excepciones.*;
+import datobase.exceptions.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 /**
@@ -28,10 +28,10 @@ public class Vasistencia extends javax.swing.JDialog {
         ext = false;
         try {
             
-            EjercicioBaseDatos2.listaEventos(cbEventos);
+            EjercicioBaseDatos5.listaEventos(cbEventos);
         }
         catch (FilaNoEncontrada e) {
-            JOptionPane.showMessageDialog(parent, modal);
+            JOptionPane.showMessageDialog(parent, "no se encontraron eventos a los que unirse");
             this.dispose();
         } catch (Exception ex) {
             Logger.getLogger(Vasistencia.class.getName()).log(Level.SEVERE, null, ex);
@@ -261,19 +261,27 @@ public class Vasistencia extends javax.swing.JDialog {
         try {
             
             if (ext) {
+                if (cbEventos.getSelectedIndex() == -1)
+                    throw new DatoRequerido();
                 
-                EjercicioBaseDatos2.procesoAsistencia((String) cbEventos.getSelectedItem());
+                EjercicioBaseDatos5.procesoAsistencia((String) cbEventos.getSelectedItem());
             }
             else {
                 // validar datos
+                if (cbEventos.getSelectedIndex() == -1||tfDni.getText().isEmpty()||tfNombre.getText().isEmpty()||tfEdad.getText().isEmpty()
+                        ||tfTelefono.getText().isEmpty()||tfNombreEmp.getText().isEmpty()||tfCNAE.getText().isEmpty())
+                    throw new DatoRequerido();
                 
-                EjercicioBaseDatos2.procesoAsistencia((String) cbEventos.getSelectedItem(), tfDni.getText(), tfNombre.getText(), Integer.parseInt(tfEdad.getText()), 
+                EjercicioBaseDatos5.procesoAsistencia((String) cbEventos.getSelectedItem(), tfDni.getText(), tfNombre.getText(), Integer.parseInt(tfEdad.getText()), 
                                                         Integer.parseInt(tfTelefono.getText()), tfNombreEmp.getText(), Integer.parseInt(tfCNAE.getText()));
             }
             JOptionPane.showMessageDialog(this, "Ya estas inscrito");
         }
-        catch (MySQLIntegrityConstraintViolationException e ) {
-            JOptionPane.showMessageDialog(this, "ya estas incrito en este evento");
+        catch (PreexistingEntityException e ) {
+            JOptionPane.showMessageDialog(this, "ya estabas inscrito en este evento");
+        }
+        catch (DatoRequerido e) {
+            JOptionPane.showMessageDialog(this, "por favor introduce los datos restantes");
         }
         catch (Exception e) {
             System.out.println(e.getClass());
@@ -286,7 +294,7 @@ public class Vasistencia extends javax.swing.JDialog {
                 //validar dni
                 
                 // se comprueba si existe la persona
-                if (EjercicioBaseDatos2.comprobarPersona(tfDni.getText())) {
+                if (EjercicioBaseDatos5.comprobarPersona(tfDni.getText())) {
                     // persona existe, le llenamos todos sus datos
                     procesoPersonaExiste();
                     bAceptar.setEnabled(true);
@@ -296,6 +304,7 @@ public class Vasistencia extends javax.swing.JDialog {
                     //persona no existe
                     bAceptar.setEnabled(true);
                 }
+                tfDni.setEditable(false);
             }
         }
         catch (Exception e) {
@@ -306,19 +315,19 @@ public class Vasistencia extends javax.swing.JDialog {
     public void procesoPersonaExiste() {
         tfDni.setEditable(false);
         
-        tfNombre.setText(EjercicioBaseDatos2.getNombre());
+        tfNombre.setText(EjercicioBaseDatos5.getNombre());
         tfNombre.setEditable(false);
         
-        tfEdad.setText(Integer.toString(EjercicioBaseDatos2.getEdad()));
+        tfEdad.setText(Integer.toString(EjercicioBaseDatos5.getEdad()));
         tfEdad.setEditable(false);
         
-        tfTelefono.setText(Integer.toString(EjercicioBaseDatos2.getTelefono()));
+        tfTelefono.setText(Integer.toString(EjercicioBaseDatos5.getTelefono()));
         tfTelefono.setEditable(false);
         
-        tfNombreEmp.setText(EjercicioBaseDatos2.getNombreEmpresa());
+        tfNombreEmp.setText(EjercicioBaseDatos5.getNombreEmpresa());
         tfNombreEmp.setEditable(false);
         
-        tfCNAE.setText(Integer.toString(EjercicioBaseDatos2.getCNAEEmpresa()));
+        tfCNAE.setText(Integer.toString(EjercicioBaseDatos5.getCNAEEmpresa()));
         tfCNAE.setEditable(false);
     }
     /**

@@ -6,18 +6,14 @@
 package modelo;
 
 import java.io.Serializable;
-import java.util.Collection;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -40,8 +36,6 @@ public class Empresa implements Serializable {
     @Basic(optional = false)
     @Column(name = "CNAE")
     private int cnae;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "empresa")
-    private Collection<Persona> personaCollection;
 
     public Empresa() {
     }
@@ -69,15 +63,6 @@ public class Empresa implements Serializable {
 
     public void setCnae(int cnae) {
         this.cnae = cnae;
-    }
-
-    @XmlTransient
-    public Collection<Persona> getPersonaCollection() {
-        return personaCollection;
-    }
-
-    public void setPersonaCollection(Collection<Persona> personaCollection) {
-        this.personaCollection = personaCollection;
     }
 
     @Override
